@@ -122,6 +122,7 @@ public class Programa {
         if (Op < 'a' || Op > 'g') {
             JOptionPane.showMessageDialog(null, "La Opción Ingresada NO Existe!!!\n"
                     + "Favor Vuelva a Intentarlo!!!");
+            
             Op = MenuModificarGabinete();//Llamado Recursivo
         }
 
@@ -274,36 +275,49 @@ public class Programa {
         char OpMod;
         
         OpMod = MenuModificarDiputado();
+        Con = Conecta();
+        if( Con!=null ){
+            try {
+                Pila = Con.createStatement();
         switch (OpMod) {
-            case 'a'://Johat
+            case 'a':
                 P.setIdentidad(JOptionPane.showInputDialog("Ingrese la Nueva Indentidad de " + P.getNombre() + ": ").toCharArray());
-                Consulta = "update Diputado_ADe set Identidad = '"+String.valueOf(P.getIdentidad())+"' where Nombre = '"+P.getNombre()+"';";
+                Consulta = "update Diputado_BFFR_CELG_DJZG set Identidad = '"+String.valueOf(P.getIdentidad())+"' where Nombre = '"+P.getNombre()+"';";
                 break;
-            case 'b'://Jorge
+            case 'b':
                 P.setNombre(JOptionPane.showInputDialog("Ingrese el Nuevo Nombre de " + P.getNombre() + ": "));
-                Consulta = "update Diputado_ADe set Nombre = '"+P.getNombre()+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                Consulta = "update Diputado_BFFR_CELG_DJZG set Nombre = '"+P.getNombre()+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                 break;
-            case 'c'://Katherine
+            case 'c':
                 P.setEdad(Short.parseShort(JOptionPane.showInputDialog("Ingrese la Nueva Edad de " + P.getNombre() + ": ")));
-                Consulta = "update Diputado_ADe set Edad = '"+String.valueOf(P.getIdentidad())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                Consulta = "update Diputado_BFFR_CELG_DJZG set Edad = '"+String.valueOf(P.getIdentidad())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                 break;
-            case 'd'://Osman
-                P.setGenero(P.ValidarGen(P.getNombre()));
+            case 'd':
+               P.setGenero( P.ValidarGen( P.getNombre() ) ) ;
+                 Consulta = "update Diputado_BFFR_CELG_DJZGset Genero = '"+String.valueOf(P.getGenero())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                 break;
-            case 'e'://Ricardo
+            case 'e':
                 P.setCelular(JOptionPane.showInputDialog("Ingrese el Nuevo Celular de " + P.getNombre() + ": ").toCharArray());
-                 Consulta = "update Diputado_ADe set Celular = '"+String.valueOf(P.getCelular())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                Consulta = "update Diputado_BFFR_CELG_DJZG set Celular = '"+String.valueOf(P.getCelular())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                 break;
-            case 'f'://Rommell
-                P.setCorreo(P.ValidarCorreo(P.getNombre()));
+            case 'f':
+                P.setCorreo(JOptionPane.showInputDialog("Ingrese el Nuevo Correo de " + P.getNombre() + ": "));
+                Consulta = "update Diputado_BFFR_CELG_DJZG set Correo = '"+String.valueOf(P.getCorreo())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                 break;
-            case 'g'://Jonathan
+            case 'g':
                 P.setCargo(JOptionPane.showInputDialog("Ingrese el Nuevo Cargo de " + P.getNombre() + ": "));
-                Consulta = "update Diputado_ADe set Cargo = '"+P.getCargo()+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                Consulta = "update Diputado_BFFR_CELG_DJZG set Cargo = '"+P.getCargo()+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                 break;
-            case 'h'://Allan o Jery
+            case 'h':
                 P.setPartido(JOptionPane.showInputDialog("Ingrese el Nuevo Partido de " + P.getNombre() + ": "));
+                Consulta = "update Diputado_BFFR_CELG_DJZG set Partido = '"+String.valueOf(P.getPartido())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                 break;
+        }
+        JOptionPane.showMessageDialog(null, "Modificado: "+Pila.executeUpdate(Consulta));
+                Desconecta(Con);
+            }catch(java.sql.SQLException e){
+                        
+            }
         }
         return P;
     }
@@ -322,32 +336,33 @@ public class Programa {
                         Consulta = "update Gabinete_CRPD set Identidad = '"+String.valueOf(P.getIdentidad())+"' where Nombre = '"+P.getNombre()+"';";
                         //JOptionPane.showMessageDialog(null, "Modificados: "+Pila.executeUpdate(Consulta));
                         break;
-                    case 'b'://Abel Luque
+                    case 'b':
                         P.setNombre(JOptionPane.showInputDialog("Ingrese el Nuevo Nombre de " + P.getNombre() + ": "));
                         Consulta = "update Gabinete_CRPD set Nombre = '"+ P.getNombre() +"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                         break;
-                    case 'c'://Alessandra
+                    case 'c':
                       P.setEdad(Short.parseShort(JOptionPane.showInputDialog("Ingrese la Nueva Edad de " + P.getNombre()+ ": ")));
                       Consulta = "update Gabinete_CRPD set Edad = '"+ P.getEdad() + "' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
-                    case 'd'://Ariel
+                    case 'd':
                         P.setGenero( P.ValidarGen( P.getNombre() ) ) ;
                         Consulta = "update Gabinete_CRPD set Genero = '"+String.valueOf(P.getGenero())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
-                    case 'e'://Bryan
+                    case 'e':
                       P.setCelular(JOptionPane.showInputDialog("Ingrese el Nuevo Celular de " + P.getNombre()+ ":").toCharArray());
                       Consulta = "update Gabinete_CRPD set Celular = '"+String.valueOf(P.getCelular())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
-                    case 'f'://Cesar
+                    case 'f':
                       P.setCorreo(P.ValidarCorreo(P.getNombre()));
                       Consulta = "update Gabinete_CRPD set Correo = '"+String.valueOf(P.getCorreo())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
-                    case 'g'://Chris
+                    case 'g':
                         P.setTitulo(JOptionPane.showInputDialog("Ingrese el Nuevo Titulo de " + P.getNombre()+ ":"));
                         Consulta = "update Gabinete_CRPD set Titulo = '"+String.valueOf(P.getTitulo())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
-                    case 'h'://David
+                    case 'h':
                       P.setSecretaria(JOptionPane.showInputDialog("Ingrese la Nueva Secretaria de " + P.getNombre()+ ":"));
+                      Consulta = "update Gabinete_CRPD set Secretaria = '"+String.valueOf(P.getSecretaria())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
                 }
                 JOptionPane.showMessageDialog(null, "Modificado: "+Pila.executeUpdate(Consulta));
@@ -369,21 +384,20 @@ public class Programa {
                 Pila = Con.createStatement();
                 switch (OpMod) {
                     case 'a':
-                        P.setIdentidad(JOptionPane.showInputDialog("Ingrese el Nuevo Número de Identidad de " + P.getNombre()+ ": ").toCharArray());
-                        Consulta = "update CSJ_BFFR_CELG_DJZG set Identidad = '"+String.valueOf(P.getIdentidad())+"' where Nombre = '"+P.getNombre()+"';";
-                        
-                        break;
+                      P.setIdentidad(JOptionPane.showInputDialog("Ingrese el Nuevo Número de Identidad de " + P.getNombre()+ ": ").toCharArray());
+                      Consulta = "update CSJ_BFFR_CELG_DJZG set Identidad = '"+String.valueOf(P.getIdentidad())+"' where Nombre = '"+P.getNombre()+"';";
+                      break;
                     case 'b':
-                        P.setNombre(JOptionPane.showInputDialog("Ingrese el Nuevo Nombre de " + P.getNombre() + ": "));
-                        Consulta = "update CSJ_BFFR_CELG_DJZG set Nombre = '"+ P.getNombre() +"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
-                        break;
+                      P.setNombre(JOptionPane.showInputDialog("Ingrese el Nuevo Nombre de " + P.getNombre() + ": "));
+                      Consulta = "update CSJ_BFFR_CELG_DJZG set Nombre = '"+ P.getNombre() +"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                      break;
                     case 'c':
                       P.setEdad(Short.parseShort(JOptionPane.showInputDialog("Ingrese la Nueva Edad de " + P.getNombre()+ ": ")));
                       Consulta = "update CSJ_BFFR_CELG_DJZG set Edad = '"+ P.getEdad() + "' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
                     case 'd':
-                        P.setGenero( P.ValidarGen( P.getNombre() ) ) ;
-                        Consulta = "update CSJ_BFFR_CELG_DJZG set Genero = '"+String.valueOf(P.getGenero())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                      P.setGenero( P.ValidarGen( P.getNombre() ) ) ;
+                      Consulta = "update CSJ_BFFR_CELG_DJZG set Genero = '"+String.valueOf(P.getGenero())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
                     case 'e':
                       P.setCelular(JOptionPane.showInputDialog("Ingrese el Nuevo Celular de " + P.getNombre()+ ":").toCharArray());
@@ -394,10 +408,11 @@ public class Programa {
                       Consulta = "update CSJ_BFFR_CELG_DJZG set Correo = '"+String.valueOf(P.getCorreo())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
                     case 'g':
-                        P.setEspecialidad(JOptionPane.showInputDialog("Ingrese la Nueva Especialidad de " + P.getNombre()+ ":"));
-                        Consulta = "update CSJ_BFFR_CELG_DJZG set Especialidad = '"+String.valueOf(P.getEspecialidad())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                      P.setEspecialidad(JOptionPane.showInputDialog("Ingrese la Nueva Especialidad de " + P.getNombre()+ ":"));
+                      Consulta = "update CSJ_BFFR_CELG_DJZG set Especialidad = '"+String.valueOf(P.getEspecialidad())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
                       break;
                 }
+                
                 JOptionPane.showMessageDialog(null, "Modificado: "+Pila.executeUpdate(Consulta));
                 Desconecta(Con);
             }catch(java.sql.SQLException e){
