@@ -120,7 +120,7 @@ public class GUI extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Realizado!!!");
                         }
                     }else if( (OpSm=='b' && A[i] instanceof Diputado) || (OpSm==' ' && A[i] instanceof Diputado) ){
-                        P.Consulta = "insert into Diputado_ADe(Identidad,Nombre,Edad,Genero,Celular,Correo,Cargo,Partido) values ('"
+                        P.Consulta = "insert into Diputado_BFFR_CELG_DJZG(Identidad,Nombre,Edad,Genero,Celular,Correo,Cargo,Partido) values ('"
                                 +String.valueOf(  ((Diputado)A[i]).getIdentidad()  )+"','"
                                 +((Diputado)A[i]).getNombre()+"',"
                                 +((Diputado)A[i]).getEdad()+",'"
