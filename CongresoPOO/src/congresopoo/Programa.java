@@ -106,6 +106,28 @@ public class Programa {
         return Op;
     }
     
+    public char MenuModificarCSJ() {
+        char Op;
+        
+        Op = JOptionPane.showInputDialog("**Menú Modificar**\n"
+                + "a.-> Identidad.\n"
+                + "b.-> Nombre.\n"
+                + "c.-> Edad.\n"
+                + "d.-> Genero.\n"
+                + "e.-> Celular.\n"
+                + "f.-> Correo.\n"
+                + "g.-> especialidad.\n"
+                + "Su Elección Es:").toLowerCase().charAt(0);
+
+        if (Op < 'a' || Op > 'g') {
+            JOptionPane.showMessageDialog(null, "La Opción Ingresada NO Existe!!!\n"
+                    + "Favor Vuelva a Intentarlo!!!");
+            Op = MenuModificarGabinete();//Llamado Recursivo
+        }
+
+        return Op;
+    }
+    
     public Gobierno[] Predefinido(Gobierno A[]){
         A = new Gobierno [14];
         //public Diputado(char[] Identidad, String Nombre, short Edad, char Genero, char[] Celular, String Correo, String Cargo, String Partido) {//Constructor Full
@@ -336,7 +358,55 @@ public class Programa {
         }
     return P;
   }
-        
+    
+     public CSJ Modificar(CSJ P) {
+        char OpMod;
+
+        OpMod = MenuModificarCSJ();
+        Con = Conecta();
+        if( Con!=null ){
+            try {
+                Pila = Con.createStatement();
+                switch (OpMod) {
+                    case 'a':
+                        P.setIdentidad(JOptionPane.showInputDialog("Ingrese el Nuevo Número de Identidad de " + P.getNombre()+ ": ").toCharArray());
+                        Consulta = "update CSJ_BFFR_CELG_DJZG set Identidad = '"+String.valueOf(P.getIdentidad())+"' where Nombre = '"+P.getNombre()+"';";
+                        
+                        break;
+                    case 'b':
+                        P.setNombre(JOptionPane.showInputDialog("Ingrese el Nuevo Nombre de " + P.getNombre() + ": "));
+                        Consulta = "update CSJ_BFFR_CELG_DJZG set Nombre = '"+ P.getNombre() +"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                        break;
+                    case 'c':
+                      P.setEdad(Short.parseShort(JOptionPane.showInputDialog("Ingrese la Nueva Edad de " + P.getNombre()+ ": ")));
+                      Consulta = "update CSJ_BFFR_CELG_DJZG set Edad = '"+ P.getEdad() + "' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                      break;
+                    case 'd':
+                        P.setGenero( P.ValidarGen( P.getNombre() ) ) ;
+                        Consulta = "update CSJ_BFFR_CELG_DJZG set Genero = '"+String.valueOf(P.getGenero())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                      break;
+                    case 'e':
+                      P.setCelular(JOptionPane.showInputDialog("Ingrese el Nuevo Celular de " + P.getNombre()+ ":").toCharArray());
+                      Consulta = "update CSJ_BFFR_CELG_DJZG set Celular = '"+String.valueOf(P.getCelular())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                      break;
+                    case 'f':
+                      P.setCorreo(P.ValidarCorreo(P.getNombre()));
+                      Consulta = "update CSJ_BFFR_CELG_DJZG set Correo = '"+String.valueOf(P.getCorreo())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                      break;
+                    case 'g':
+                        P.setEspecialidad(JOptionPane.showInputDialog("Ingrese la Nueva Especialidad de " + P.getNombre()+ ":"));
+                        Consulta = "update CSJ_BFFR_CELG_DJZG set Especialidad = '"+String.valueOf(P.getEspecialidad())+"' where Identidad = '"+String.valueOf(P.getIdentidad())+"';";
+                      break;
+                }
+                JOptionPane.showMessageDialog(null, "Modificado: "+Pila.executeUpdate(Consulta));
+                Desconecta(Con);
+            }catch(java.sql.SQLException e){
+                        
+            }
+        }
+    return P;
+  }
+    
     public void ImprimirCLI(Gobierno A[], char Op){
          switch (Op) {
             case 'a':
