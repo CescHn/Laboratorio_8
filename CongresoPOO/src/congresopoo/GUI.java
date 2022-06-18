@@ -222,7 +222,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public String[] EtiquetasMagistrados(){
-        String E[] = {};
+        String E[] = {"Posición","Identidad","Nombre del Diputado","Edad","Género","Celular","Correo","Especialidad"};
         return E;
     }
     
@@ -258,7 +258,8 @@ public class GUI extends javax.swing.JFrame {
                     ((Gabinete)A[i]).getSecretaria()
                 };
                 Tabla.addRow(Linea);
-            }else if(Op=='b' && A[i] instanceof Diputado){
+            }
+            else if(Op=='b' && A[i] instanceof Diputado){
                 Object Linea[] = {(i+1),
                     String.valueOf( ((Diputado)A[i]).getIdentidad() ),
                     ((Diputado)A[i]).getNombre(),
@@ -271,6 +272,19 @@ public class GUI extends javax.swing.JFrame {
                 };
                 Tabla.addRow(Linea);
             }
+            else if(Op=='c' && A[i] instanceof CSJ){
+                Object Linea[] = {(i+1),
+                    String.valueOf( ((CSJ)A[i]).getIdentidad() ),
+                    ((CSJ)A[i]).getNombre(),
+                    ((CSJ)A[i]).getEdad(),
+                    ((CSJ)A[i]).getGenero(),
+                    String.valueOf( ((CSJ)A[i]).getCelular() ),
+                    ((CSJ)A[i]).getCorreo(),
+                    ((CSJ)A[i]).getEspecialidad(),
+                };
+                Tabla.addRow(Linea);
+            }
+            
         }
     }
     
