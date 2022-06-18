@@ -176,7 +176,7 @@ public class GUI extends javax.swing.JFrame {
                     }                        
                 } 
                 if (OpSm=='b' || OpSm==' '){
-                    P.Consulta = "select * from Diputado_ADe;";
+                    P.Consulta = "select * from Diputado_BFFR_CELG_DJZG;";
                     Resultado = P.Pila.executeQuery(P.Consulta);
                     for (; Resultado.next() ;) {
                         //public Diputado(char[] Identidad, String Nombre, short Edad, char Genero, char[] Celular, String Correo, String Cargo, String Partido) 
