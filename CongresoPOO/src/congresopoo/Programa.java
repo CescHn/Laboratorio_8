@@ -107,7 +107,7 @@ public class Programa {
     }
     
     public Gobierno[] Predefinido(Gobierno A[]){
-        A = new Gobierno [10];
+        A = new Gobierno [14];
         //public Diputado(char[] Identidad, String Nombre, short Edad, char Genero, char[] Celular, String Correo, String Cargo, String Partido) {//Constructor Full
         A[0] = new Diputado("0801-1973-12345".toCharArray(),"Luis Rolando Redondo Guifarro",(short)49,'M',"32322323".toCharArray(),"lredondo@unitec.edu", "Presidente", "PSH");
         A[1] = new Diputado("0801-1948-12345".toCharArray(),"Mauricio Villeda Bermudez",(short)74,'M',"87877878".toCharArray(),"mvilleda@unitec.edu", "N/A", "Liberal");
@@ -219,7 +219,7 @@ public class Programa {
                         tmpA[i] = new Diputado();//Llamado al Constructor Vacío
                         break;
                     case 'c'://Magistrado
-                        
+                        tmpA[i] = new CSJ();
                         break;
                 }
                 tmpA[i].Leer(i);

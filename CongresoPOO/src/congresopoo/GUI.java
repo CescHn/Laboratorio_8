@@ -135,7 +135,7 @@ public class GUI extends javax.swing.JFrame {
                     
                     }else if( (OpSm=='c' && A[i] instanceof CSJ) || (OpSm==' ' && A[i] instanceof CSJ) ){
                         P.Consulta = "insert into CSJ_BFFR_CELG_DJZG(Identidad,Nombre,Edad,Genero,Celular,Correo,Especialidad) values ('"
-                                +String.valueOf(  ((Diputado)A[i]).getIdentidad()  )+"','"
+                                +String.valueOf(  ((CSJ)A[i]).getIdentidad()  )+"','"
                                 +((CSJ)A[i]).getNombre()+"',"
                                 +((CSJ)A[i]).getEdad()+",'"
                                 +((CSJ)A[i]).getGenero()+"','"

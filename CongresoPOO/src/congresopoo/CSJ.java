@@ -32,7 +32,7 @@ public class CSJ extends Persona {
 
     @Override
     public String toString() {
-        return "Gabinete{" + super.toString() + "Titulo=" + Especialidad + '}';
+        return "Gabinete{" + super.toString() + "Especialidad=" + Especialidad + '}';
     }
     
     @Override
@@ -56,7 +56,7 @@ public class CSJ extends Persona {
     @Override
     public void Leer(int i){
         super.Leer(i);
-        Especialidad = JOptionPane.showInputDialog("Ingrese la Especialidad del Abogado: "+ super.getNombre() +":");
+        Especialidad = JOptionPane.showInputDialog("Ingrese la Especialidad del Abogado "+ super.getNombre() +":");
         
     }
 }
