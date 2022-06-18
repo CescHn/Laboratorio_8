@@ -585,6 +585,8 @@ public class GUI extends javax.swing.JFrame {
                         A[Pos] = P.Modificar( (Gabinete)A[Pos] );
                     }else if(A[Pos] instanceof Diputado){
                         A[Pos] = P.Modificar( (Diputado)A[Pos] );
+                    }else if(A[Pos] instanceof CSJ){
+                        A[Pos] = P.Modificar( (CSJ)A[Pos] );
                     }
                     this.jLbl_Titulo.setText("Modificación Exitosa!!!");
                     break;

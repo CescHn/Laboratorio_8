@@ -100,6 +100,7 @@ public class Programa {
         if (Op < 'a' || Op > 'h') {
             JOptionPane.showMessageDialog(null, "La Opción Ingresada NO Existe!!!\n"
                     + "Favor Vuelva a Intentarlo!!!");
+            
             Op = MenuModificarGabinete();//Llamado Recursivo
         }
 
@@ -116,7 +117,7 @@ public class Programa {
                 + "d.-> Genero.\n"
                 + "e.-> Celular.\n"
                 + "f.-> Correo.\n"
-                + "g.-> especialidad.\n"
+                + "g.-> Especialidad.\n"
                 + "Su Elección Es:").toLowerCase().charAt(0);
 
         if (Op < 'a' || Op > 'g') {
