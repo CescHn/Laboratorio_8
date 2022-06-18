@@ -130,7 +130,20 @@ public class GUI extends javax.swing.JFrame {
                                 +((Diputado)A[i]).getCargo()+"','"
                                 +((Diputado)A[i]).getPartido()+"');";
                         P.Pila.execute(P.Consulta);
+                    
+                    }else if( (OpSm=='c' && A[i] instanceof CSJ) || (OpSm==' ' && A[i] instanceof CSJ) ){
+                        P.Consulta = "insert into CSJ_BFFR_CELG_DJZG(Identidad,Nombre,Edad,Genero,Celular,Correo,Especialidad) values ('"
+                                +String.valueOf(  ((Diputado)A[i]).getIdentidad()  )+"','"
+                                +((CSJ)A[i]).getNombre()+"',"
+                                +((CSJ)A[i]).getEdad()+",'"
+                                +((CSJ)A[i]).getGenero()+"','"
+                                +String.valueOf(  ((CSJ)A[i]).getCelular()  )+"','"
+                                +((CSJ)A[i]).getCorreo()+"','"
+                                +((CSJ)A[i]).getEspecialidad()+"');";
+                        P.Pila.execute(P.Consulta);
                     }
+                    
+                    
                 }
                 P.Desconecta(P.Con);
                 this.jLbl_Titulo.setText("Inserción Exitosa!!!");
@@ -178,7 +191,24 @@ public class GUI extends javax.swing.JFrame {
                         );
                         A = P.Registrar(A, Var);
                     }  
-                }              
+                } 
+                if (OpSm=='c' || OpSm==' '){
+                    P.Consulta = "select * from CSJ_BFFR_CELG_DJZG;";
+                    Resultado = P.Pila.executeQuery(P.Consulta);
+                    for (; Resultado.next() ;) {
+                        //public CSJ(char[] Identidad, String Nombre, short Edad, char Genero, char[] Celular, String Correo, String Especialidad) 
+                        Var = new CSJ(Resultado.getString("Identidad").toCharArray(),
+                                           Resultado.getString("Nombre"),
+                                           Resultado.getShort("Edad"),
+                                           Resultado.getString("Genero").charAt(0),
+                                           Resultado.getString("Celular").toCharArray(),
+                                           Resultado.getString("Correo"),
+                                           Resultado.getString("ESpecialidad")
+                        );
+                        A = P.Registrar(A, Var);
+                    }  
+                } 
+                
                 this.jLbl_Titulo.setText("Selección Exitosa!!!");
                 P.Desconecta(P.Con);
             } catch (SQLException e) {
@@ -222,7 +252,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public String[] EtiquetasMagistrados(){
-        String E[] = {"Posición","Identidad","Nombre del Diputado","Edad","Género","Celular","Correo","Especialidad"};
+        String E[] = {"Posición","Identidad","Nombre del Magistrado","Edad","Género","Celular","Correo","Especialidad"};
         return E;
     }
     
