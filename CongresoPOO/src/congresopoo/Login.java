@@ -29,7 +29,7 @@ public class Login extends javax.swing.JFrame {
         if (Con != null) {
             try {
                 Pila = Con.createStatement();
-                    Consulta = "select * from Login_CRPD;";
+                    Consulta = "select * from Login_BFFR_CELG_DJZG;";
                     Resultado = Pila.executeQuery(Consulta);
                     for (; Resultado.next();) {
                         if( Resultado.getString("usuario").equals(Usuario) ){
