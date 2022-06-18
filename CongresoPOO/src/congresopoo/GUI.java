@@ -129,7 +129,9 @@ public class GUI extends javax.swing.JFrame {
                                 +((Diputado)A[i]).getCorreo()+"','"
                                 +((Diputado)A[i]).getCargo()+"','"
                                 +((Diputado)A[i]).getPartido()+"');";
-                        P.Pila.execute(P.Consulta);
+                       if( !P.Pila.execute(P.Consulta) ){
+                            JOptionPane.showMessageDialog(null, "Realizado!!!");
+                        }
                     
                     }else if( (OpSm=='c' && A[i] instanceof CSJ) || (OpSm==' ' && A[i] instanceof CSJ) ){
                         P.Consulta = "insert into CSJ_BFFR_CELG_DJZG(Identidad,Nombre,Edad,Genero,Celular,Correo,Especialidad) values ('"
@@ -140,7 +142,9 @@ public class GUI extends javax.swing.JFrame {
                                 +String.valueOf(  ((CSJ)A[i]).getCelular()  )+"','"
                                 +((CSJ)A[i]).getCorreo()+"','"
                                 +((CSJ)A[i]).getEspecialidad()+"');";
-                        P.Pila.execute(P.Consulta);
+                        if( !P.Pila.execute(P.Consulta) ){
+                            JOptionPane.showMessageDialog(null, "Realizado!!!");
+                        }
                     }
                     
                     

@@ -6,6 +6,6 @@ public class CongresoPOO {
         Login Inicio = new Login();
         Inicio.setDefaultCloseOperation(2);
         Inicio.setVisible(true);
-        //prueba
+        
     }    
 }
