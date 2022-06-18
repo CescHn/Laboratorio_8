@@ -107,7 +107,7 @@ public class Programa {
     }
     
     public Gobierno[] Predefinido(Gobierno A[]){
-        A = new Gobierno [7];
+        A = new Gobierno [10];
         //public Diputado(char[] Identidad, String Nombre, short Edad, char Genero, char[] Celular, String Correo, String Cargo, String Partido) {//Constructor Full
         A[0] = new Diputado("0801-1973-12345".toCharArray(),"Luis Rolando Redondo Guifarro",(short)49,'M',"32322323".toCharArray(),"lredondo@unitec.edu", "Presidente", "PSH");
         A[1] = new Diputado("0801-1948-12345".toCharArray(),"Mauricio Villeda Bermudez",(short)74,'M',"87877878".toCharArray(),"mvilleda@unitec.edu", "N/A", "Liberal");
@@ -116,6 +116,9 @@ public class Programa {
         A[4] = new Diputado("0101-1985-12345".toCharArray(),"Kritza Pérez",(short)37,'F',"33410976".toCharArray(),"kperez@unitec.edu", "II Vicepresidente A", "Liberal"); 
         A[5] = new Gabinete("0801-1960-10101".toCharArray(),"Jose Manuel Matheu Amaya",(short)61,'M',"88440560".toCharArray(),"mmatheu@unitec.edu","Medico Cirujano","Secretaria de Salud");
         A[6] = new Gabinete("0801-1960-12345".toCharArray(),"Ramón Sabillón Pineda",(short)61,'M',"99434145".toCharArray(),"rsabillon@unitec.edu","Comisionado de Policia","Secretaria de Seguridad");
+        A[7] = new CSJ     ("0801-1990-14255".toCharArray(), "Cesar Fernando Zavala",(short)32,'M', "32233322".toCharArray(), "elcorreo@correo.cor", "Super Agente");
+        A[8] = new CSJ     ("0801-1999-12345".toCharArray(),"David Jonatan Zavala",(short)23,'M',"31797720".toCharArray(),"dzavala@unitec.edu","Super Agente");
+        A[9] = new CSJ     ("0801-1989-12345".toCharArray(),"Leonel Zidane Ronaldo",(short)33,'M',"89966552".toCharArray(),"LeoZR@unitec.edu","Super Agente");
         return A;
     }
     
