@@ -110,4 +110,5 @@ public class Persona extends Gobierno{
     public void Guardar(PrintWriter Linea){
         Linea.print(String.valueOf(Identidad)+"\t"+Nombre+"\t"+Edad+"\t"+Genero+"\t"+String.valueOf(Celular)+"\t"+Correo);
     }
+    
 }

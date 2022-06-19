@@ -32,6 +32,8 @@ public class GUI extends javax.swing.JFrame {
         SubMenu.add(jRB_Gabinete);
         SubMenu.add(jRB_Diputados);
         SubMenu.add(jRB_Magistrados);
+        SubMenu.add(jRB_LoginClass);
+        
         
         Habilitar(false);
         
@@ -133,7 +135,8 @@ public class GUI extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Realizado!!!");
                         }
                     
-                    }else if( (OpSm=='c' && A[i] instanceof CSJ) || (OpSm==' ' && A[i] instanceof CSJ) ){
+                    }
+                    else if( (OpSm=='c' && A[i] instanceof CSJ) || (OpSm==' ' && A[i] instanceof CSJ) ){
                         P.Consulta = "insert into CSJ_BFFR_CELG_DJZG(Identidad,Nombre,Edad,Genero,Celular,Correo,Especialidad) values ('"
                                 +String.valueOf(  ((CSJ)A[i]).getIdentidad()  )+"','"
                                 +((CSJ)A[i]).getNombre()+"',"
@@ -145,9 +148,18 @@ public class GUI extends javax.swing.JFrame {
                         if( !P.Pila.execute(P.Consulta) ){
                             JOptionPane.showMessageDialog(null, "Realizado!!!");
                         }
+                        
                     }
-                    
-                    
+                    else if( (OpSm=='d' && A[i] instanceof LoginClass) || (OpSm==' ' && A[i] instanceof LoginClass) ){
+                        P.Consulta = "insert into Login_BFFR_CELG_DJZG(usuario, clave, rol) values ('"
+                                +((LoginClass)A[i]).getUsuario()+"',"
+                                +((LoginClass)A[i]).getClave()+",'"
+                                +((LoginClass)A[i]).getRol()+"');";
+                        if( !P.Pila.execute(P.Consulta) ){
+                            JOptionPane.showMessageDialog(null, "Realizado!!!");
+                        }
+                    }
+   
                 }
                 P.Desconecta(P.Con);
                 this.jLbl_Titulo.setText("Inserción Exitosa!!!");
@@ -213,6 +225,19 @@ public class GUI extends javax.swing.JFrame {
                     }  
                 } 
                 
+                if (OpSm=='d' || OpSm==' '){
+                    P.Consulta = "select * from Login_BFFR_CELG_DJZG;";
+                    Resultado = P.Pila.executeQuery(P.Consulta);
+                    for (; Resultado.next() ;) {
+                        //public LoginClass(String Usuario, String Clave, String Rol) 
+                        Var = new LoginClass(Resultado.getString("usuario"),
+                                           Resultado.getString("clave"),
+                                           Resultado.getString("rol")
+                        );
+                        A = P.Registrar(A, Var);
+                    }  
+                } 
+                
                 this.jLbl_Titulo.setText("Selección Exitosa!!!");
                 P.Desconecta(P.Con);
             } catch (SQLException e) {
@@ -240,7 +265,8 @@ public class GUI extends javax.swing.JFrame {
         this.jRB_Gabinete.setEnabled(Habilita);
         this.jRB_Diputados.setEnabled(Habilita);
         this.jRB_Magistrados.setEnabled(Habilita);
-        if( (Habilita && (OpSm>='a'&& OpSm<='c')) || !Habilita){
+        this.jRB_LoginClass.setEnabled(Habilita);
+        if( (Habilita && (OpSm>='a'&& OpSm<='d')) || !Habilita){
             this.jBtn_Aceptar.setEnabled(Habilita);            
         }
     }
@@ -260,6 +286,11 @@ public class GUI extends javax.swing.JFrame {
         return E;
     }
     
+    public String[] EtiquetasLogin(){
+        String E[] = {"Posición","Usuario","Clave","Rol"};
+        return E;
+    }
+    
     public void Mostrar(Gobierno A[], char Op){
         String Datos[][] = {};
         String Etiquetas[] = {};
@@ -273,6 +304,9 @@ public class GUI extends javax.swing.JFrame {
                 break;
             case 'c':
                 Etiquetas = EtiquetasMagistrados();
+                break;
+            case 'd':
+                Etiquetas = EtiquetasLogin();
                 break;
         }
         
@@ -319,6 +353,14 @@ public class GUI extends javax.swing.JFrame {
                 Tabla.addRow(Linea);
             }
             
+             else if(Op=='d' && A[i] instanceof LoginClass){
+                Object Linea[] = {(i+1),
+                    ((LoginClass)A[i]).getUsuario(),
+                    ((LoginClass)A[i]).getClave(),
+                    ((LoginClass)A[i]).getRol(),
+                };
+                Tabla.addRow(Linea);
+            }
         }
     }
     
@@ -326,6 +368,7 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbl_Mostrar = new javax.swing.JTable();
@@ -341,6 +384,7 @@ public class GUI extends javax.swing.JFrame {
         jBtn_Aceptar = new javax.swing.JButton();
         jLbl_Menu = new javax.swing.JLabel();
         jLbl_SubMenu = new javax.swing.JLabel();
+        jRB_LoginClass = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -430,6 +474,13 @@ public class GUI extends javax.swing.JFrame {
         jLbl_SubMenu.setFont(new java.awt.Font("Noto Sans", 1, 14)); // NOI18N
         jLbl_SubMenu.setText("SubMenú:");
 
+        jRB_LoginClass.setText("Login");
+        jRB_LoginClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRB_LoginClassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -460,7 +511,8 @@ public class GUI extends javax.swing.JFrame {
                                 .addComponent(jRB_Magistrados)
                                 .addGap(83, 83, 83)
                                 .addComponent(jBtn_Aceptar))
-                            .addComponent(jLbl_SubMenu))))
+                            .addComponent(jLbl_SubMenu)
+                            .addComponent(jRB_LoginClass))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -492,7 +544,9 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jRB_Magistrados)
                             .addComponent(jBtn_Aceptar))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRB_Eliminar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRB_Eliminar)
+                    .addComponent(jRB_LoginClass))
                 .addGap(34, 34, 34))
         );
 
@@ -587,6 +641,8 @@ public class GUI extends javax.swing.JFrame {
                         A[Pos] = P.Modificar( (Diputado)A[Pos] );
                     }else if(A[Pos] instanceof CSJ){
                         A[Pos] = P.Modificar( (CSJ)A[Pos] );
+                    }else if(A[Pos] instanceof LoginClass){
+                        A[Pos] = P.Modificar( (LoginClass)A[Pos] );
                     }
                     this.jLbl_Titulo.setText("Modificación Exitosa!!!");
                     break;
@@ -605,6 +661,11 @@ public class GUI extends javax.swing.JFrame {
         //P.ImprimirCLI( A, OpSm );
         Mostrar(A,OpSm); 
     }//GEN-LAST:event_jBtn_AceptarActionPerformed
+
+    private void jRB_LoginClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRB_LoginClassActionPerformed
+      OpSm = 'd';
+        Habilitar(true);
+    }//GEN-LAST:event_jRB_LoginClassActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -639,6 +700,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jBtn_Aceptar;
     private javax.swing.JLabel jLbl_Menu;
     private javax.swing.JLabel jLbl_SubMenu;
@@ -648,6 +710,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRB_Eliminar;
     private javax.swing.JRadioButton jRB_Gabinete;
     private javax.swing.JRadioButton jRB_Guardar;
+    private javax.swing.JRadioButton jRB_LoginClass;
     private javax.swing.JRadioButton jRB_Magistrados;
     private javax.swing.JRadioButton jRB_Modificar;
     private javax.swing.JRadioButton jRB_Mostrar;

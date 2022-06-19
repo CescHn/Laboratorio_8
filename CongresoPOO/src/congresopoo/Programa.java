@@ -130,6 +130,25 @@ public class Programa {
         return Op;
     }
     
+    public char MenuModificarLogin() {
+        char Op;
+        
+        Op = JOptionPane.showInputDialog("**Menú Modificar**\n"
+                + "a.-> Usuario.\n"
+                + "b.-> Clave.\n"
+                + "c.-> Rol.\n"
+                + "Su Elección Es:").toLowerCase().charAt(0);
+
+        if (Op < 'a' || Op > 'c') {
+            JOptionPane.showMessageDialog(null, "La Opción Ingresada NO Existe!!!\n"
+                    + "Favor Vuelva a Intentarlo!!!");
+            
+            Op = MenuModificarLogin();//Llamado Recursivo
+        }
+
+        return Op;
+    }
+    
     public Gobierno[] Predefinido(Gobierno A[]){
         A = new Gobierno [14];
         //public Diputado(char[] Identidad, String Nombre, short Edad, char Genero, char[] Celular, String Correo, String Cargo, String Partido) {//Constructor Full
@@ -244,6 +263,9 @@ public class Programa {
                         break;
                     case 'c'://Magistrado
                         tmpA[i] = new CSJ();
+                        break;
+                    case 'd'://Login
+                        tmpA[i] = new LoginClass();
                         break;
                 }
                 tmpA[i].Leer(i);
@@ -375,7 +397,7 @@ public class Programa {
     return P;
   }
     
-     public CSJ Modificar(CSJ P) {
+    public CSJ Modificar(CSJ P) {
         char OpMod;
 
         OpMod = MenuModificarCSJ();
@@ -422,27 +444,66 @@ public class Programa {
         }
     return P;
   }
+     
+    public LoginClass Modificar(LoginClass P) {
+        char OpMod;
+        
+        OpMod = MenuModificarLogin();
+        Con = Conecta();
+        if( Con!=null ){
+            try {
+                Pila = Con.createStatement();
+        switch (OpMod) {
+            case 'a':
+                P.setUsuario(JOptionPane.showInputDialog("Ingrese el nuevo Usuario de " + P.getUsuario() + ": "));
+                Consulta = "update Login_BFFR_CELG_DJZG set usuario = '"+ P.getUsuario() +"' where usuario = '"+(P.getUsuario())+"';";
+                break;
+            case 'b':
+                P.setClave(JOptionPane.showInputDialog("Ingrese la nueva Clave de " + P.getUsuario() + ": "));
+                Consulta = "update Login_BFFR_CELG_DJZG set clave = '"+P.getClave()+"' where usuario = '"+(P.getUsuario())+"';";
+                break;
+            case 'c':
+                P.setRol(JOptionPane.showInputDialog("Ingrese el nuevo Rol de " + P.getUsuario() + ": "));
+                Consulta = "update Login_BFFR_CELG_DJZG set rol =  '"+P.getRol()+"' where usuario = '"+(P.getUsuario())+"';";
+                break;
+        }
+        JOptionPane.showMessageDialog(null, "Modificado: "+Pila.executeUpdate(Consulta));
+                Desconecta(Con);
+            }catch(java.sql.SQLException e){
+                        
+            }
+        }
+        return P;
+    }
     
     public void ImprimirCLI(Gobierno A[], char Op){
          switch (Op) {
             case 'a':
                 System.out.print("+--------+---------------+--------------------------------------------------+----+------+----------------+--------------------++-------------------------+-------------------------+\n"
-                                +"|Posición|   Identidad   |               Nombre del Diputado                |Edad|Género|     Celular    |       Correo       ||          Título         |         Secretaría      |\n"
+                                +"|Posición|   Identidad   |               Nombre del Ministro                |Edad|Género|     Celular    |       Correo       ||          Título         |         Secretaría      |\n"
                                 +"+--------+---------------+--------------------------------------------------+----+------+----------------+--------------------++-------------------------+-------------------------+\n");                           
                 break;
             case 'b':
                 System.out.print("+--------+---------------+--------------------------------------------------+----+------+----------------+--------------------++--------------------+---------------+\n"
-                                +"|Posición|   Identidad   |               Nombre del Diputado                |Edad|Género|     Celular    |       Correo       ||       Cargo:       |    Partido    |\n"
+                                +"|Posición|   Identidad   |               Nombre del Diputado                |Edad|Género|     Celular    |       Correo       ||       Cargo        |    Partido    |\n"
                                 +"+--------+---------------+--------------------------------------------------+----+------+----------------+--------------------++--------------------+---------------+\n");                
                 break;
             case 'c':
-                
+                System.out.print("+--------+---------------+--------------------------------------------------+----+------+----------------+--------------------++---------------------------+\n"
+                                +"|Posición|   Identidad   |               Nombre del Magistrado                |Edad|Género|     Celular    |       Correo     ||        Especialidad        |\n"
+                                +"+--------+---------------+--------------------------------------------------+----+------+----------------+--------------------++---------------------------+\n");    
+                break;
+            case 'd':
+                System.out.print("+--------+---------------+-----------------------------+\n"
+                                +"|Posición|   Usuario  |      Clave      |  Rol  |      |\n"
+                                +"+--------+---------------+-----------------------------+\n");    
                 break;
         }
         for (int i = 0; i < A.length; i++) {
             if(A[i] instanceof Gabinete && Op=='a' ||
-               A[i] instanceof Diputado && Op=='b'
-                    ){
+               A[i] instanceof Diputado && Op=='b' ||
+               A[i] instanceof CSJ && Op=='c'      ||
+               A[i] instanceof LoginClass && Op=='d'    ){
                 A[i].ImprimirCLI(i);
                 A[i].Borde();
             }
@@ -470,4 +531,5 @@ public class Programa {
             return false;
         }
     }
+
 }
