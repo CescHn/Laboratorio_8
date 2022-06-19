@@ -456,7 +456,7 @@ public class Programa {
         switch (OpMod) {
             case 'a':
                 P.setUsuario(JOptionPane.showInputDialog("Ingrese el nuevo Usuario de " + P.getUsuario() + ": "));
-                Consulta = "update Login_BFFR_CELG_DJZG set usuario = '"+ P.getUsuario() +"' where usuario = '"+(P.getUsuario())+"';";
+                Consulta = "update Login_BFFR_CELG_DJZG set usuario = '"+ P.getUsuario()+"' where usuario = '"+(P.getUsuario())+"';";
                 break;
             case 'b':
                 P.setClave(JOptionPane.showInputDialog("Ingrese la nueva Clave de " + P.getUsuario() + ": "));
