@@ -153,7 +153,7 @@ public class GUI extends javax.swing.JFrame {
                     else if( (OpSm=='d' && A[i] instanceof LoginClass) || (OpSm==' ' && A[i] instanceof LoginClass) ){
                         P.Consulta = "insert into Login_BFFR_CELG_DJZG(usuario, clave, rol) values ('"
                                 +((LoginClass)A[i]).getUsuario()+"','"
-                                +((LoginClass)A[i]).getClave()+"',"
+                                +((LoginClass)A[i]).getClave()+"','"
                                 +((LoginClass)A[i]).getRol()+"');";
                         if( !P.Pila.execute(P.Consulta) ){
                             JOptionPane.showMessageDialog(null, "Realizado!!!");
